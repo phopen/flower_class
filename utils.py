@@ -7,6 +7,8 @@ from skimage.feature import plot_matches
 from skimage.util import montage
 from skimage.io import imread_collection
 from skimage.io import concatenate_images
+import glob
+import re
 import cv2
 
 
@@ -58,9 +60,16 @@ def todict(matobj):
     return dict
 
 def load_images(folder):
-    images = imread_collection(folder)
-    images_arr = concatenate_images(images)
-    return images_arr
+    images = []
+    image_labels = []
+
+    for filename in glob.glob(folder + '/*.jpg'):
+        img = cv2.imread(filename)
+        if img is not None:
+            images.append(img)
+            image_labels.append(re.sub('_[^_]*$', '', re.split('/', filename)[-1]))
+
+    return images, image_labels
 
 
 # def imread(path):

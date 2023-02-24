@@ -20,9 +20,9 @@ epochs = 2000
 dataSet = 'Flowers'
 
 # Load data
-path = os.path.join('..', 'data/flowers')
-data = utils.load_images(os.path.join(path, '*.jpg'))
-print('+++ Loading dataset: {} ({} images)'.format(dataSet, data.shape))
+path = os.path.join(os.getcwd(), 'data/flowers')
+data, labels = utils.load_images(path)
+print('+++ Loading dataset: {} ({} images, {} labels)'.format(dataSet, len(data), len(labels)))
 
 # Organize into numImages x numChannels x width x height
 # x = data['x'].transpose([2, 0, 1])
